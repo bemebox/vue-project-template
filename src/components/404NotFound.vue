@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="py-4 items-center justify-center text-center">
     <font-awesome-icon class="py-4 w-10 h-10" icon="ban" />
     <h1 class="text-6xl mb-4">404</h1>
     <p class="text-xl">Page Not Found</p>
