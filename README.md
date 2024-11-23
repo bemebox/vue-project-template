@@ -43,14 +43,21 @@ Basically configure package dependencies for the project:
 
 - **autoprefixer:** A PostCSS plugin that parses CSS and adds vendor prefixes to CSS rules using values from Can I Use.
 
-````sh
-npm install tailwindcss postcss autoprefixer --save
+- **@fortawesome/fontawesome-svg-core:** Core package of Font Awesome SVG icons library, providing essential functions for working with icons.
+
+- **@fortawesome/free-solid-svg-icons:** Package containing a set of free solid (filled) SVG icons from Font Awesome.
+
+- **@fortawesome/vue-fontawesome:** Vue.js component for using Font Awesome icons, allowing easy integration of icons into Vue applications.
+
+```sh
+npm install tailwindcss postcss autoprefixer @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons @fortawesome/vue-fontawesome --save
+```
 
 ### Compile and Hot-Reload for Development
 
 ```sh
 npm run dev
-````
+```
 
 ### Type-Check, Compile and Minify for Production
 
