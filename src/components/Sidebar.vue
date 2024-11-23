@@ -16,7 +16,6 @@
           <li
             v-for="item in menuItems"
             :key="item.label"
-            @click="navigateTo(item.path)"
             class="py-4 text-sm font-bold border-l-4 cursor-pointer"
             :class="{
               '': $route.path === item.path,
@@ -46,7 +45,6 @@ export default {
   data() {
     return {
       menuItems: [
-        { path: '/', label: 'Home', icon: 'house' },
         { path: '/dashboard', label: 'Dashboard', icon: 'chart-pie' },
         { path: '/form', label: 'Form', icon: 'rectangle-list' },
         { path: '/table', label: 'Table', icon: 'table' },

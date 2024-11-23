@@ -39,14 +39,15 @@
             v-if="profileMenuOpen"
             class="absolute right-0 w-48 border border-gray-200 rounded-md shadow-lg"
           >
-            <li @click="navigateTo('profile')" class="px-4 py-2">
-              <a href="#">Profile</a>
-            </li>
-            <li @click="navigateTo('settings')" class="px-4 py-2">
-              <a href="#">Settings</a>
+            <li class="px-4 py-2">
+              <!-- Use router-link for navigation -->
+              <router-link to="/profile" @click="profileMenuOpen = false">Profile</router-link>
             </li>
             <li class="px-4 py-2">
-              <a href="#">Logout</a>
+              <router-link to="/settings" @click="profileMenuOpen = false">Settings</router-link>
+            </li>
+            <li class="px-4 py-2">
+              <router-link to="/logout" @click="profileMenuOpen = false">Logout</router-link>
             </li>
           </ul>
         </div>
@@ -85,11 +86,6 @@ export default {
       }
     }
 
-    const navigateTo = (routeName: string) => {
-      router.push({ name: routeName })
-      profileMenuOpen.value = false // Close the profile menu
-    }
-
     const initializeTheme = () => {
       // Check if the user has previously set a theme
       const savedTheme = localStorage.getItem('theme')
@@ -122,7 +118,6 @@ export default {
       profileMenuOpen,
       toggleProfileMenu,
       closeProfileMenu,
-      navigateTo,
     }
   },
 }
