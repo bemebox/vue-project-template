@@ -1,41 +1,33 @@
 <template>
-  <header class="shadow-md bg-white dark:bg-gray-800">
+  <header class="shadow-md">
     <div class="flex justify-between items-center px-6 py-4">
       <!-- Hamburger Menu -->
       <font-awesome-icon
         icon="bars"
-        class="cursor-pointer px-2 w-5 h-5 ms-1 md:hidden focus:outline-none text-gray-500"
+        class="cursor-pointer px-2 w-5 h-5 ms-1 md:hidden focus:outline-none"
       />
 
       <!-- Search Input -->
-      <div
-        class="relative flex-1 max-w-md mx-auto bg-gray-70 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300"
-      >
+      <div class="relative flex-1 max-w-md mx-auto">
         <input
           type="text"
           placeholder="Search for projects"
-          class="w-full pl-10 pr-4 py-2 border dark:border-gray-600 bg-gray-70 dark:bg-gray-800 dark:text-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600"
+          class="w-full pl-10 pr-4 py-2 border rounded-md"
         />
-        <font-awesome-icon
-          class="absolute top-3 left-3 w-4 h-4 text-gray-400"
-          icon="magnifying-glass"
-        />
+        <font-awesome-icon class="absolute top-3 left-3 w-4 h-4" icon="magnifying-glass" />
       </div>
 
       <!-- Action Items -->
       <div class="flex items-center space-x-4">
         <!-- Light/Dark Theme Switch -->
         <button class="p-2" @click="toggleTheme" aria-label="Toggle Theme">
-          <font-awesome-icon v-if="!dark" class="w-5 h-5 text-gray-500" icon="moon" />
-          <font-awesome-icon v-else class="w-5 h-5 text-blue-500" icon="sun" />
+          <font-awesome-icon v-if="!dark" class="w-5 h-5" icon="moon" />
+          <font-awesome-icon v-else class="w-5 h-5" icon="sun" />
         </button>
 
         <!-- Profile Menu -->
         <div class="relative" ref="menuContainer">
-          <button
-            @click="toggleProfileMenu"
-            class="relative w-8 h-8 rounded-full focus:outline-none focus:ring-2 focus:ring-purple-600"
-          >
+          <button @click="toggleProfileMenu" class="relative w-8 h-8">
             <img
               src="https://randomuser.me/api/portraits/thumb/men/22.jpg"
               alt="User Profile"
@@ -44,21 +36,15 @@
           </button>
           <ul
             v-if="profileMenuOpen"
-            class="absolute right-0 w-48 bg-white border border-gray-200 rounded-md shadow-lg dark:bg-gray-700 dark:border-gray-600"
+            class="absolute right-0 w-48 border border-gray-200 rounded-md shadow-lg"
           >
-            <li
-              @click="navigateTo('profile')"
-              class="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600"
-            >
+            <li @click="navigateTo('profile')" class="px-4 py-2">
               <a href="#">Profile</a>
             </li>
-            <li
-              @click="navigateTo('settings')"
-              class="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600"
-            >
+            <li @click="navigateTo('settings')" class="px-4 py-2">
               <a href="#">Settings</a>
             </li>
-            <li class="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600">
+            <li class="px-4 py-2">
               <a href="#">Logout</a>
             </li>
           </ul>
