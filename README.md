@@ -35,15 +35,22 @@ npm install
 
 ### Dependencies Installation
 
-```sh
+Basically configure package dependencies for the project:
 
-```
+- **tailwindcss:** A highly customizable CSS framework that generates utility classes for rapid UI development.
+
+- **postcss:** A tool for transforming CSS with JavaScript plugins, used in this context for processing Tailwind CSS.
+
+- **autoprefixer:** A PostCSS plugin that parses CSS and adds vendor prefixes to CSS rules using values from Can I Use.
+
+````sh
+npm install tailwindcss postcss autoprefixer --save
 
 ### Compile and Hot-Reload for Development
 
 ```sh
 npm run dev
-```
+````
 
 ### Type-Check, Compile and Minify for Production
 
