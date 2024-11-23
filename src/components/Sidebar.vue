@@ -16,17 +16,17 @@
           <li
             v-for="item in menuItems"
             :key="item.label"
-            :to="item.path"
-            class="py-4 text-sm font-bold border-l-4"
+            @click="navigateTo(item.path)"
+            class="py-4 text-sm font-bold border-l-4 cursor-pointer"
             :class="{
               '': $route.path === item.path,
               '': $route.path !== item.path,
             }"
           >
-            <a :href="item.path" class="px-2 block">
+            <router-link :to="item.path" class="px-2 block w-full">
               <font-awesome-icon :icon="item.icon" class="px-4 w-4 h-4" />
               {{ item.label }}
-            </a>
+            </router-link>
           </li>
         </ul>
       </div>
