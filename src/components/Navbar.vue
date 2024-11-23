@@ -3,6 +3,7 @@
     <div class="flex justify-between items-center px-6 py-4">
       <!-- Hamburger Menu -->
       <font-awesome-icon
+        @click="$emit('toggleSidebar')"
         icon="bars"
         class="cursor-pointer px-2 w-5 h-5 ms-1 md:hidden focus:outline-none"
       />
@@ -60,6 +61,7 @@ import { useRouter } from 'vue-router'
 
 export default {
   name: 'Navbar',
+  emits: ['toggleSidebar'],
   setup() {
     const dark = ref(false)
     const profileMenuOpen = ref(false)
