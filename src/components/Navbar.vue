@@ -13,15 +13,23 @@
 
       <!-- Action Items -->
       <div class="flex items-center space-x-4">
+        <router-link to="/settings">
+          <font-awesome-icon class="w-5 h-5 p-2" icon="gear" title="Settings" />
+        </router-link>
+
         <!-- Light/Dark Theme Switch -->
         <button class="p-2" @click="toggleTheme" aria-label="Toggle Theme">
-          <font-awesome-icon v-if="!dark" class="w-5 h-5" icon="moon" />
-          <font-awesome-icon v-else class="w-5 h-5" icon="sun" />
+          <font-awesome-icon v-if="!dark" class="w-5 h-5" icon="moon" title="Dark mode" />
+          <font-awesome-icon v-else class="w-5 h-5" icon="sun" title="Light mode" />
         </button>
+
+        <router-link to="/help">
+          <font-awesome-icon class="w-5 h-5 p-2" icon="circle-question" title="Help" />
+        </router-link>
 
         <!-- Profile Menu -->
         <div class="relative" ref="menuContainer">
-          <button @click="toggleProfileMenu" class="relative w-8 h-8">
+          <button @click="toggleProfileMenu" class="relative w-8 h-8" title="User Profile">
             <img
               src="https://randomuser.me/api/portraits/thumb/men/22.jpg"
               alt="User Profile"
@@ -35,9 +43,6 @@
             <li class="px-4 py-2">
               <!-- Use router-link for navigation -->
               <router-link to="/profile" @click="profileMenuOpen = false">Profile</router-link>
-            </li>
-            <li class="px-4 py-2">
-              <router-link to="/settings" @click="profileMenuOpen = false">Settings</router-link>
             </li>
             <li class="px-4 py-2">
               <router-link to="/logout" @click="profileMenuOpen = false">Logout</router-link>
