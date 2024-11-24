@@ -8,15 +8,8 @@
         class="cursor-pointer px-2 w-5 h-5 ms-1 md:hidden focus:outline-none"
       />
 
-      <!-- Search Input -->
-      <div class="relative flex-1 max-w-md mx-auto">
-        <input
-          type="text"
-          placeholder="Search for projects"
-          class="w-full pl-10 pr-4 py-2 border rounded-md"
-        />
-        <font-awesome-icon class="absolute top-3 left-3 w-4 h-4" icon="magnifying-glass" />
-      </div>
+      <!-- middle  -->
+      <div class="relative flex-1 max-w-md mx-auto">&nbsp;</div>
 
       <!-- Action Items -->
       <div class="flex items-center space-x-4">
