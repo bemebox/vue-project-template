@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Dashboard from '../components/Dashboard.vue'
+import Table from '../components/Table.vue'
 import Profile from '../components/Profile.vue'
 import NotFound from '../components/404NotFound.vue'
 
@@ -10,6 +11,11 @@ const router = createRouter({
       path: '/dashboard',
       name: 'dashboard',
       component: Dashboard,
+    },
+    {
+      path: '/table',
+      name: 'table',
+      component: Table,
     },
     {
       path: '/profile',
