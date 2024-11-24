@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Dashboard from '../components/Dashboard.vue'
+import Profile from '../components/Profile.vue'
 import NotFound from '../components/404NotFound.vue'
 
 const router = createRouter({
@@ -9,6 +10,11 @@ const router = createRouter({
       path: '/dashboard',
       name: 'dashboard',
       component: Dashboard,
+    },
+    {
+      path: '/profile',
+      name: 'profile',
+      component: Profile,
     },
     // This is the catch-all route for undefined paths (404 page)
     {
