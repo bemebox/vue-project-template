@@ -118,6 +118,7 @@ export default {
       profileMenuOpen,
       toggleProfileMenu,
       closeProfileMenu,
+      menuContainer,
     }
   },
 }
