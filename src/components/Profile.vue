@@ -1,97 +1,225 @@
 <template>
-  <div>
-    <h1 class="text-3xl mb-4">Profile</h1>
-  </div>
-  <div class="flex items-center justify-center">
-    <div class="max-w-md w-full shadow-xl">
-      <div class="shadow-xl rounded-lg py-3">
-        <!-- Profile Picture -->
-        <div class="photo-wrapper p-2">
-          <img
-            v-if="profile"
-            :src="profile.picture"
-            alt="Profile Picture"
-            class="w-32 h-32 rounded-full mx-auto"
-          />
-        </div>
-
-        <!-- Profile Info -->
-        <div v-if="profile" class="p-2">
-          <h3 class="text-center text-xl font-medium leading-8">{{ profile.name }}</h3>
-          <div class="text-center text-base font-semibold">
-            <p>{{ profile.age }}</p>
+  <div class="min-h-screen">
+    <!-- Header Section -->
+    <div class="bg-white shadow-lg">
+      <div class="flex items-center justify-between max-w-7xl mx-auto p-6">
+        <div class="flex items-center space-x-4">
+          <!-- Profile Picture -->
+          <div class="w-24 h-24 rounded-full overflow-hidden border">
+            <img :src="profile.avatar" alt="Profile Picture" class="object-cover w-full h-full" />
           </div>
-          <div class="text-center text-sm font-semibold">
-            <p>{{ profile.role }}</p>
+          <!-- User Info -->
+          <div>
+            <h1 class="text-3xl font-bold">{{ profile.name }}</h1>
+            <p class="text-sm">{{ profile.role }}</p>
+            <p class="text-sm">{{ profile.email }}</p>
+          </div>
+        </div>
+        <button
+          @click="openEditModal"
+          class="px-4 py-2 text-sm font-semibold border rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2"
+        >
+          Edit Profile
+        </button>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="shadow-md">
+      <div class="max-w-7xl mx-auto px-6">
+        <nav class="flex space-x-4">
+          <button
+            v-for="tab in tabs"
+            :key="tab"
+            @click="activeTab = tab"
+            :class="{
+              'border-b-2': activeTab === tab,
+              '': activeTab !== tab,
+            }"
+            class="px-4 py-3 text-sm font-medium"
+          >
+            {{ tab }}
+          </button>
+        </nav>
+      </div>
+    </div>
+
+    <!-- Content Section -->
+    <div class="max-w-7xl mx-auto px-6 py-6">
+      <!-- About Me Tab -->
+      <div v-if="activeTab === 'About Me'">
+        <h2 class="text-xl font-bold mb-4">About Me</h2>
+        <p class="text-sm">{{ profile.about }}</p>
+      </div>
+
+      <!-- Activity Tab -->
+      <div v-if="activeTab === 'Activity'">
+        <h2 class="text-xl font-bold mb-4">Recent Activity</h2>
+        <ul class="space-y-4">
+          <li
+            v-for="activity in profile.activity"
+            :key="activity.id"
+            class="p-4 rounded-lg shadow-md"
+          >
+            <p class="text-sm">{{ activity.description }}</p>
+            <p class="text-xs">{{ activity.date }}</p>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Settings Tab -->
+      <div v-if="activeTab === 'Settings'">
+        <h2 class="text-xl font-bold mb-4">Profile Settings</h2>
+        <p class="text-sm">Settings functionality coming soon!</p>
+      </div>
+    </div>
+
+    <!-- Edit Profile Modal -->
+    <div
+      v-if="isEditModalOpen"
+      class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
+      @click="closeEditModal"
+    >
+      <div class="p-6 rounded-lg shadow-lg w-96 bg-white" @click.stop>
+        <h3 class="text-xl font-semibold mb-4">Edit Profile</h3>
+        <form @submit.prevent="saveProfile">
+          <!-- Avatar URL Input -->
+          <div class="mb-4">
+            <label for="avatar" class="text-sm font-semibold">Avatar URL</label>
+            <div class="mt-2 mb-4 flex items-center justify-center">
+              <div class="w-24 h-24 rounded-full overflow-hidden border">
+                <img
+                  :src="profile.avatar"
+                  alt="Profile Picture"
+                  class="object-cover w-full h-full"
+                />
+              </div>
+            </div>
+            <input
+              type="url"
+              id="avatar"
+              v-model="profile.avatar"
+              placeholder="Enter Image URL"
+              class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2"
+            />
           </div>
 
-          <!-- Contact Info -->
-          <table class="text-sm my-3 w-full">
-            <tbody>
-              <tr>
-                <td class="px-2 py-2 font-semibold">Address</td>
-                <td class="px-2 py-2">{{ profile.address }}</td>
-              </tr>
-              <tr>
-                <td class="px-2 py-2 font-semibold">Phone</td>
-                <td class="px-2 py-2">{{ profile.phone }}</td>
-              </tr>
-              <tr>
-                <td class="px-2 py-2 font-semibold">Email</td>
-                <td class="px-2 py-2">{{ profile.email }}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+          <!-- Name -->
+          <div class="mb-4">
+            <label for="name" class="text-sm font-semibold">Name</label>
+            <input
+              v-model="profile.name"
+              type="text"
+              id="name"
+              class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2"
+              required
+            />
+          </div>
 
-        <!-- Loading State -->
-        <div v-else class="text-center py-6">
-          <p>Loading profile...</p>
-        </div>
+          <!-- Email -->
+          <div class="mb-4">
+            <label for="email" class="text-sm font-semibold">Email</label>
+            <input
+              v-model="profile.email"
+              type="email"
+              id="email"
+              class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2"
+              required
+            />
+          </div>
+
+          <!-- Role -->
+          <div class="mb-4">
+            <label for="role" class="text-sm font-semibold">Role</label>
+            <input
+              v-model="profile.role"
+              type="text"
+              id="role"
+              class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2"
+              required
+            />
+          </div>
+
+          <!-- About -->
+          <div class="mb-4">
+            <label for="about" class="text-sm font-semibold">About</label>
+            <textarea
+              v-model="profile.about"
+              id="about"
+              rows="4"
+              class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2"
+            ></textarea>
+          </div>
+
+          <div class="flex justify-end space-x-4">
+            <button
+              type="button"
+              @click="closeEditModal"
+              class="px-4 py-2 text-sm font-semibold border rounded-md focus:outline-none"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              class="px-4 py-2 text-sm font-semibold border rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2"
+            >
+              Save Changes
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 
 export default {
-  name: 'Profile',
+  name: 'ConfluenceProfilePage',
   setup() {
-    const profile = ref<null | {
-      name: string
-      age: number
-      role: string
-      address: string
-      phone: string
-      email: string
-      picture: string
-    }>(null)
+    const tabs = ref(['About Me', 'Activity', 'Settings'])
+    const activeTab = ref('About Me')
+    const isEditModalOpen = ref(false)
 
-    // Mock API fetch function
-    const fetchProfile = async () => {
-      try {
-        // Simulate API call with a delay
-        await new Promise((resolve) => setTimeout(resolve, 1000))
-        profile.value = {
-          name: 'John Doe',
-          age: 49,
-          role: 'Web Developer',
-          address: 'Chatakpur-3, Dhangadhi Kailali',
-          phone: '+977 9955221114',
-          email: 'john@example.com',
-          picture: 'https://randomuser.me/api/portraits/men/22.jpg',
-        }
-      } catch (error) {
-        console.error('Failed to fetch profile:', error)
-      }
+    const profile = ref({
+      name: 'John Doe',
+      role: 'Software Engineer',
+      email: 'john.doe@example.com',
+      avatar: 'https://randomuser.me/api/portraits/men/22.jpg',
+      about:
+        'I am a passionate software engineer with over 10 years of experience in building scalable web applications.',
+      activity: [
+        { id: 1, description: 'Commented on a page: "Team Meeting Notes"', date: '2 hours ago' },
+        { id: 2, description: 'Updated a page: "Project Roadmap"', date: '1 day ago' },
+        { id: 3, description: 'Created a page: "Weekly Standup Agenda"', date: '3 days ago' },
+      ],
+    })
+
+    const openEditModal = () => {
+      isEditModalOpen.value = true
     }
 
-    onMounted(fetchProfile)
+    const closeEditModal = () => {
+      isEditModalOpen.value = false
+    }
+
+    const saveProfile = () => {
+      // Logic for saving the profile goes here
+      console.log('Profile updated:', profile.value)
+
+      // After saving, close the modal
+      closeEditModal()
+    }
 
     return {
       profile,
+      tabs,
+      activeTab,
+      isEditModalOpen,
+      openEditModal,
+      closeEditModal,
+      saveProfile,
     }
   },
 }
